@@ -20,10 +20,10 @@ const FIXTURES_CONST = {
 
 const PAGES = {
   DASHBOARD: `${FIXTURES_CONST.BASE_URL}/dashboard`,
-  NO_ACCOUNTS: `${FIXTURES_CONST.BASE_URL}/no-accounts`,
   SETTINGS: `${FIXTURES_CONST.BASE_URL}/settings`,
   ADD_ACCOUNT_MNEMONIC: `${FIXTURES_CONST.BASE_URL}/add-account/mnemonic_phrase`,
-  SEND: `${FIXTURES_CONST.BASE_URL}/send`
+  SEND: `${FIXTURES_CONST.BASE_URL}/send`,
+  ADD_ACCOUNT: `${FIXTURES_CONST.BASE_URL}/add-account`
 };
 
 const NETWORK_NAME_FIXTURE = 'Ropsten';
