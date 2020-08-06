@@ -534,6 +534,8 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
           isResolvingName={isResolvingName}
           onBlur={handleGasEstimate}
           setIsResolvingDomain={setIsResolvingDomain}
+          setFieldValue={setFieldValue}
+          setFieldTouched={setFieldTouched}
         />
       </fieldset>
       {/* Amount */}
@@ -584,6 +586,7 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
             network={values.network}
             gasPrice={values.gasPriceSlider}
             gasEstimates={values.gasEstimates}
+            setFieldValue={setFieldValue}
           />
         )}
         {getTxFeeValidation(
