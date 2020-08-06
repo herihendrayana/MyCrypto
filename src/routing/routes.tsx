@@ -93,6 +93,9 @@ const BuyAssets = lazy(() =>
 const EnsDashboard = lazy(() =>
   import(/* webpackChunkName: "EnsDashboard" */ '@features/Ens/EnsDashboard')
 );
+const RepTokenMigration = lazy(() =>
+  import(/* webpackChunkName: "TokenMigration" */ '@features/TokenMigration/TokenMigrationStepper')
+);
 
 export interface IAppRoutes {
   [K: string]: IAppRoute;
@@ -323,6 +326,15 @@ export const getStaticAppRoutes = (IS_ACTIVE_FEATURE: IIS_ACTIVE_FEATURE): IAppR
     requireAccounts: true,
     enabled: IS_ACTIVE_FEATURE.ENS,
     component: EnsDashboard
+  },
+  {
+    name: ROUTE_PATHS.REP_TOKEN_MIGRATION.name,
+    title: ROUTE_PATHS.REP_TOKEN_MIGRATION.title,
+    path: ROUTE_PATHS.REP_TOKEN_MIGRATION.path,
+    exact: true,
+    requireAccounts: true,
+    enabled: IS_ACTIVE_FEATURE.REP_TOKEN_MIGRATION,
+    component: RepTokenMigration
   }
 ];
 

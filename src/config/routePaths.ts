@@ -140,6 +140,11 @@ const PATHS: IRoutePath[] = [
     name: 'ENS',
     title: 'Ethereum Name Service',
     path: '/ens'
+  },
+  {
+    name: 'REP_TOKEN_MIGRATION',
+    title: 'REP Token Migration',
+    path: '/migrate/rep'
   }
 ];
 
