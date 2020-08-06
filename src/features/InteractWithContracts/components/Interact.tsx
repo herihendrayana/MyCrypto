@@ -265,7 +265,7 @@ function Interact(props: CombinedProps) {
       validationSchema={FormSchema}
       // Hack as we don't really use Formik for this flow
       onSubmit={() => undefined}
-      render={({ values, errors, touched, setFieldValue }) => {
+      render={({ values, errors, touched, setFieldValue, setFieldError, setFieldTouched }) => {
         useEffect(() => {
           if (
             !getNetworkById(networkIdFromUrl, networks) ||
@@ -336,6 +336,8 @@ function Interact(props: CombinedProps) {
                   onChange={(address) => handleAddressOrDomainChanged(address)}
                   value={values.address}
                   setFieldValue={setFieldValue}
+                  setFieldTouched={setFieldTouched}
+                  setFieldError={setFieldError}
                 />
               </FieldWrapper>
             </ContractSelectionWrapper>
