@@ -77,7 +77,7 @@ import { checkFormForProtectTxErrors } from '@features/ProtectTransaction';
 import { ProtectTxShowError } from '@features/ProtectTransaction/components/ProtectTxShowError';
 import { ProtectTxButton } from '@features/ProtectTransaction/components/ProtectTxButton';
 import { ProtectTxContext } from '@features/ProtectTransaction/ProtectTxProvider';
-import { useEffectOnce, path } from '@vendor';
+import { path } from '@vendor';
 import { getFiat } from '@config/fiats';
 
 import { DataField, GasLimitField, GasPriceField, GasPriceSlider, NonceField } from './fields';
@@ -382,19 +382,26 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
     handleNonceEstimate(values.account);
   }, [values.account]);
 
-  // Set gas estimates if default asset is selected
-  useEffectOnce(() => {
-    if (!isEmpty(values.asset)) {
-      fetchGasPriceEstimates(values.network).then((data) => {
-        setFieldValue('gasEstimates', data);
-        setFieldValue('gasPriceSlider', data.fast);
-      });
-    }
-  });
-
   useEffect(() => {
     handleGasEstimate();
   }, [values.account, values.address]);
+
+  useEffect(() => {
+    const asset = values.asset;
+    //@todo get assetType onChange
+    handleFieldReset();
+    if (asset && asset.networkId) {
+      const network = getNetworkById(asset.networkId, networks);
+      fetchGasPriceEstimates(network).then((data) => {
+        setFieldValue('gasEstimates', data);
+        setFieldValue('gasPriceSlider', data.fast);
+      });
+      setFieldValue('network', network || {});
+      if (network) {
+        setBaseAsset(getBaseAssetByNetwork({ network, assets: userAssets }) || ({} as Asset));
+      }
+    }
+  }, [values.asset]);
 
   useEffect(() => {
     if (ptxState.protectTxShow) {
@@ -492,21 +499,6 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
           assets={userAssets}
           onSelect={(option: StoreAsset) => {
             setFieldValue('asset', option || {}); //if this gets deleted, it no longer shows as selected on interface (find way to not need this)
-            //@todo get assetType onChange
-            handleFieldReset();
-            if (option && option.networkId) {
-              const network = getNetworkById(option.networkId, networks);
-              fetchGasPriceEstimates(network).then((data) => {
-                setFieldValue('gasEstimates', data);
-                setFieldValue('gasPriceSlider', data.fast);
-              });
-              setFieldValue('network', network || {});
-              if (network) {
-                setBaseAsset(
-                  getBaseAssetByNetwork({ network, assets: userAssets }) || ({} as Asset)
-                );
-              }
-            }
           }}
         />
       </fieldset>
