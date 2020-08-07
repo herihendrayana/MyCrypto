@@ -413,7 +413,7 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
   }, [values.address.value]);
 
   const toggleIsAutoGasSet = () => {
-    // save value because setFieldValue method is async and values are not yet updated	            // save value because setFieldValue method is async and values are not yet updated
+    // save value because setFieldValue method is async and values are not yet updated
     const isEnablingAutoGas = !values.isAutoGasSet;
     setFieldValue('isAutoGasSet', !values.isAutoGasSet);
     if (isEnablingAutoGas) {
@@ -585,7 +585,7 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
             network={values.network}
             gasPrice={values.gasPriceSlider}
             gasEstimates={values.gasEstimates}
-            setFieldValue={setFieldValue}
+            onChange={(g) => setFieldValue('gasPriceSlider', g)}
           />
         )}
         {getTxFeeValidation(
